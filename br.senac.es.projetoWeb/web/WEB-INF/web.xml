@@ -4,9 +4,17 @@
         <servlet-name>AlunoServlet</servlet-name>
         <servlet-class>controller.AlunoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfessorServlet</servlet-name>
+        <servlet-class>controller.ProfessorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoServlet</servlet-name>
         <url-pattern>/aluno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorServlet</servlet-name>
+        <url-pattern>/professor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

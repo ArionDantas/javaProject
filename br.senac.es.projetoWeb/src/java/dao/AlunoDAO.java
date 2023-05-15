@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Aluno;
 
-public class alunoDAO {
+public class AlunoDAO {
 
     //CRUD --> Objetos para conexão com o Banco de Dados
     MyConnection myConnection = new MyConnection();

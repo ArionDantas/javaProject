@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.AlunoDAO;
+import dao.ProfessorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -13,19 +13,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Aluno;
+import model.Professor;
 
 /**
  *
  * @author sala303b
  */
-public class AlunoServlet extends HttpServlet {
+public class ProfessorServlet extends HttpServlet {
 
-    // Variaveis globais
     private String acao, abrir;
-    private final String cadastrar = "cadastrar_aluno.jsp";
-    private final String editar = "cadastrar_aluno.jsp";
-    private final String listar = "cadastrar_aluno.jsp";
+    private final String cadastrar = "cadastrar_professor.jsp";
+    private final String editar = "cadastrar_professor.jsp";
+    private final String listar = "cadastrar_professor.jsp";
     private final String sucesso = "sucesso.jsp";
     private final String erro = "erro.jsp";
 
@@ -42,16 +41,16 @@ public class AlunoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page her e. You may use following sample code. 
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AlunoServlet</title>");            
+            out.println("<title>Servlet ProfessorServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AlunoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProfessorServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
-            out.println("</html>");*/
+            out.println("</html>");
         }
     }
 
@@ -87,27 +86,31 @@ public class AlunoServlet extends HttpServlet {
 
         if (acao.equals("cadastrar")) {
 
-            Aluno aluno = new Aluno();
+            Professor professor = new Professor();
 
-            aluno.setNome(request.getParameter("txtNome"));
-            aluno.setEmail(request.getParameter("txtEmail"));
-            aluno.setIdade(Integer.parseInt(request.getParameter("txtIdade")));
-            aluno.setTelefone(request.getParameter("txtTelefone"));
+            professor.setNome(request.getParameter("txtNome"));
+            professor.setEmail(request.getParameter("txtEmail"));
+            professor.setArea((request.getParameter("txtArea")));
+            professor.setTelefone(request.getParameter("txtTelefone"));
+            professor.setFormacao(request.getParameter("txtFormacao"));
+            
+            
+            System.out.println(professor.toString());
 
-            AlunoDAO dao = new AlunoDAO();
 
-            if (dao.create(aluno)) {
+            ProfessorDAO dao = new ProfessorDAO();
+
+            if (dao.create(professor)) {
                 abrir = sucesso;
-                request.setAttribute("msg", "Uhull... Aluno cadastrado com sucesso!");
+                request.setAttribute("msg", "Uhull... Professor cadastrado com sucesso!");
             } else {
                 abrir = erro;
-                request.setAttribute("msg", "Ops... Erro ao cadastrar Aluno!");
+                request.setAttribute("msg", "Ops... Erro ao cadastrar Professor!");
             }
         }
 
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
         visualizar.forward(request, response);
-
     }
 
     /**

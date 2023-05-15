@@ -1,7 +1,7 @@
 package controller;
 
 import model.Aluno;
-import dao.alunoDAO;
+import dao.AlunoDAO;
 
 public class Teste {
 
@@ -20,7 +20,7 @@ public class Teste {
 //            System.out.println("Ops! Erro ao cadastrar aluno.");
 //        }
 
-        alunoDAO dao = new alunoDAO();
+        AlunoDAO dao = new AlunoDAO();
 
         dao.read().forEach((a) -> {
             System.out.println("DADOS DO ALUNO");

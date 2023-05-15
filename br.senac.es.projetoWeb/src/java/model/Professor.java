@@ -3,15 +3,19 @@ package model;
 public class Professor {
     private int idProfessor;
     private String nome;
+    private String area;
+    private String telefone;
     private String email;
     private String formacao;
 
     public Professor() {
     }
 
-    public Professor(int idProfessor, String nome, String email, String formacao) {
+    public Professor(int idProfessor, String nome, String area, String telefone, String email, String formacao) {
         this.idProfessor = idProfessor;
         this.nome = nome;
+        this.area = area;
+        this.telefone = telefone;
         this.email = email;
         this.formacao = formacao;
     }
@@ -32,6 +36,22 @@ public class Professor {
         this.nome = nome;
     }
 
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -47,7 +67,6 @@ public class Professor {
     public void setFormacao(String formacao) {
         this.formacao = formacao;
     }
-    
-    
-    
+
+   
 }
