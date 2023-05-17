@@ -27,9 +27,9 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pedagógico</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="./cadastrar_aluno.jsp">Cadastrar aluno</a></li>
-                        <li><a class="dropdown-item" href="#">Listar aluno</a></li>
+                        <li><a class="dropdown-item" href="./aluno?acao=listar">Listar aluno</a></li>
                         <li><a class="dropdown-item" href="./cadastrar_professor.jsp">Cadastrar professor</a></li>
-                        <li><a class="dropdown-item" href="#">Listar professor</a></li>
+                        <li><a class="dropdown-item" href="./professor?acao=listar">Listar professor</a></li>
                     </ul>
                 </li>
                 </li>

@@ -25,7 +25,7 @@ public class AlunoServlet extends HttpServlet {
     private String acao, abrir;
     private final String cadastrar = "cadastrar_aluno.jsp";
     private final String editar = "cadastrar_aluno.jsp";
-    private final String listar = "cadastrar_aluno.jsp";
+    private final String listar = "listar_alunos.jsp";
     private final String sucesso = "sucesso.jsp";
     private final String erro = "erro.jsp";
 
@@ -67,7 +67,22 @@ public class AlunoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        
+     
+        acao = request.getParameter("acao");
+        
+        if (acao.equals("listar")) {
+            
+            AlunoDAO dao = new AlunoDAO();
+            abrir = listar;
+            request.setAttribute("alunos", dao.read());
+        }
+        
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);
+
+
+    //processRequest(request, response);    
     }
 
     /**

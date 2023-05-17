@@ -24,7 +24,7 @@ public class ProfessorServlet extends HttpServlet {
     private String acao, abrir;
     private final String cadastrar = "cadastrar_professor.jsp";
     private final String editar = "cadastrar_professor.jsp";
-    private final String listar = "cadastrar_professor.jsp";
+    private final String listar = "listar_professores.jsp";
     private final String sucesso = "sucesso.jsp";
     private final String erro = "erro.jsp";
 
@@ -66,6 +66,18 @@ public class ProfessorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+                acao = request.getParameter("acao");
+        
+        if (acao.equals("listar")) {
+            
+            ProfessorDAO dao = new ProfessorDAO();
+            abrir = listar;
+            request.setAttribute("professores", dao.read());
+        }
+        
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);
         //processRequest(request, response);
     }
 
