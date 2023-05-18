@@ -23,7 +23,7 @@ public class ProfessorServlet extends HttpServlet {
 
     private String acao, abrir;
     private final String cadastrar = "cadastrar_professor.jsp";
-    private final String editar = "cadastrar_professor.jsp";
+    private final String editar = "editar_professor.jsp";
     private final String listar = "listar_professores.jsp";
     private final String sucesso = "sucesso.jsp";
     private final String erro = "erro.jsp";
@@ -66,19 +66,26 @@ public class ProfessorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-                acao = request.getParameter("acao");
-        
+
+        acao = request.getParameter("acao");
+
+        ProfessorDAO dao = new ProfessorDAO();
+
         if (acao.equals("listar")) {
-            
-            ProfessorDAO dao = new ProfessorDAO();
+
+            request.setAttribute("professor", dao.read());
             abrir = listar;
-            request.setAttribute("professores", dao.read());
+
+        } else if (acao.equals("editar")) {
+            int idProfessor = Integer.parseInt(request.getParameter("id"));
+            request.setAttribute("professor", dao.findId(idProfessor));
+            abrir = editar;
+
+            //processRequest(request, response);
         }
-        
+
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
         visualizar.forward(request, response);
-        //processRequest(request, response);
     }
 
     /**
@@ -105,10 +112,8 @@ public class ProfessorServlet extends HttpServlet {
             professor.setArea((request.getParameter("txtArea")));
             professor.setTelefone(request.getParameter("txtTelefone"));
             professor.setFormacao(request.getParameter("txtFormacao"));
-            
-            
-            System.out.println(professor.toString());
 
+            System.out.println(professor.toString());
 
             ProfessorDAO dao = new ProfessorDAO();
 
@@ -119,10 +124,32 @@ public class ProfessorServlet extends HttpServlet {
                 abrir = erro;
                 request.setAttribute("msg", "Ops... Erro ao cadastrar Professor!");
             }
-        }
+        } else if (acao.equals("editar")) {
 
-        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
-        visualizar.forward(request, response);
+            Professor pro = new Professor();
+
+            pro.setIdProfessor(Integer.parseInt(request.getParameter("idTxt")));
+            pro.setNome(request.getParameter("txtNome"));
+            pro.setEmail(request.getParameter("txtEmail"));
+            pro.setArea(request.getParameter("txtArea"));
+            pro.setTelefone(request.getParameter("txtTelefone"));
+            pro.setFormacao(request.getParameter("txtFormacao"));
+
+            ProfessorDAO dao = new ProfessorDAO();
+
+            if (dao.update(pro)) {
+                abrir = listar;
+                request.setAttribute("professor", dao.read());
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Ops... Erro ao atualizar professoe!");
+
+            }
+
+            RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+            visualizar.forward(request, response);
+
+        }
     }
 
     /**

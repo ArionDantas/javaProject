@@ -24,7 +24,7 @@ public class AlunoServlet extends HttpServlet {
     // Variaveis globais
     private String acao, abrir;
     private final String cadastrar = "cadastrar_aluno.jsp";
-    private final String editar = "cadastrar_aluno.jsp";
+    private final String editar = "editar_aluno.jsp";
     private final String listar = "listar_alunos.jsp";
     private final String sucesso = "sucesso.jsp";
     private final String erro = "erro.jsp";
@@ -67,22 +67,24 @@ public class AlunoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-     
+
         acao = request.getParameter("acao");
-        
+        AlunoDAO dao = new AlunoDAO();
+
         if (acao.equals("listar")) {
-            
-            AlunoDAO dao = new AlunoDAO();
+
             abrir = listar;
             request.setAttribute("alunos", dao.read());
+        } else if (acao.equals("editar")) {
+            int idAluno = Integer.parseInt(request.getParameter("id"));
+            request.setAttribute("aluno", dao.findId(idAluno));
+            abrir = editar;
         }
-        
+
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
         visualizar.forward(request, response);
 
-
-    //processRequest(request, response);    
+        //processRequest(request, response);    
     }
 
     /**
@@ -118,21 +120,37 @@ public class AlunoServlet extends HttpServlet {
                 abrir = erro;
                 request.setAttribute("msg", "Ops... Erro ao cadastrar Aluno!");
             }
+        } else if (acao.equals("editar")) {
+
+            Aluno alu = new Aluno();
+
+            alu.setIdAluno(Integer.parseInt(request.getParameter("txtId")));
+            alu.setNome(request.getParameter("txtNome"));
+            alu.setEmail(request.getParameter("txtEmail"));
+            alu.setIdade(Integer.parseInt(request.getParameter("txtIdade")));
+            alu.setTelefone(request.getParameter("txtTelefone"));
+
+            AlunoDAO dao = new AlunoDAO();
+
+            if (dao.update(alu)) {
+                abrir = listar;
+                request.setAttribute("alunos", dao.read());
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Ops... Erro ao atualizar Aluno!");
+
+            }
+
+            RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+            visualizar.forward(request, response);
+
         }
 
-        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
-        visualizar.forward(request, response);
-
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-}
+    }

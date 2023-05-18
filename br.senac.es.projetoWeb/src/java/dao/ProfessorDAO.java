@@ -80,22 +80,21 @@ public class ProfessorDAO {
         String sql = "update professor set nome=?, area=?, telefone=?, email=?, formacao=? where idProfessor=?";
 
         try {
-            stmt = con.prepareCall(sql);
-            result = stmt.executeQuery();
 
-            while (result.next()) {
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1, professor.getNome());
-                stmt.setString(2, professor.getArea());
-                stmt.setString(3, professor.getTelefone());
-                stmt.setString(4, professor.getEmail());
-                stmt.setString(5, professor.getFormacao());
-                resposta = true;
-            }
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, professor.getNome());
+            stmt.setString(2, professor.getArea());
+            stmt.setString(3, professor.getTelefone());
+            stmt.setString(4, professor.getEmail());
+            stmt.setString(5, professor.getFormacao());
+            stmt.setInt(6, professor.getIdProfessor());
+            stmt.executeUpdate();
+            resposta = true;
+
         } catch (SQLException e) {
             System.out.println("Opss... Erro ao atualizar Professor" + e);
         } finally {
-            MyConnection.closeConnection(con, stmt, result);
+            MyConnection.closeConnection(con, stmt);
         }
 
         return resposta;
@@ -120,5 +119,34 @@ public class ProfessorDAO {
         }
 
         return resposta;
+    }
+
+    public Professor findId(int idProfessor) {
+
+        Professor pro = new Professor();
+        con = MyConnection.getConnection();
+        String sql = "select * from professor where idProfessor =?";
+
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idProfessor);
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+                pro.setIdProfessor(result.getInt("IdProfessor"));
+                pro.setNome(result.getString("nome"));
+                pro.setArea(result.getString("area"));
+                pro.setEmail(result.getString("email"));
+                pro.setFormacao(result.getString("formacao"));
+                pro.setTelefone(result.getString("telefone"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Opss.. Erro ao selecionar Professor" + e);
+        } finally {
+            MyConnection.closeConnection(con, stmt, result);
+        }
+
+        return pro;
     }
 }

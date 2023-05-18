@@ -39,8 +39,8 @@
                         <td>${alu.telefone}</td>
                         <td>${alu.idade}</td>
                         <td>
-                            <a href="aluno?acao=editar&id=${alu.idAluno}" class="btn btn-primary">Editar</a>
-                            <a href="aluno?acao=apagar&id=${alu.idAluno}" class="btn btn-primary">Apagar</a>
+                            <a href="aluno?acao=editar&id=${alu.idAluno}" class="btn btn-warning">Editar</a>
+                            <a href="aluno?acao=apagar&id=${alu.idAluno}" class="btn btn-danger">Apagar</a>
                         </td>
                     </tr>
                     </c:forEach>

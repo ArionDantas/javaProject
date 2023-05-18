@@ -90,7 +90,7 @@ public class AlunoDAO {
 
         } catch (SQLException e) {
             System.out.println("Opss.. Erro ao atualizar Aluno" + e);
-        }finally {
+        } finally {
             MyConnection.closeConnection(con, stmt);
         }
 
@@ -98,24 +98,52 @@ public class AlunoDAO {
     }
 
     public boolean delete(int id) {
-        
+
         boolean resposta = false;
         con = MyConnection.getConnection();
         String sql = "delete from aluno where idAluno=?";
-        
+
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
             resposta = true;
-            
+
         } catch (SQLException e) {
             System.out.println("Opss... Erro ao tentar excluir aluno" + e);
-        }finally {
+        } finally {
             MyConnection.closeConnection(con, stmt);
         }
-        
+
         return resposta;
+    }
+
+    public Aluno findId(int idAluno) {
+
+        Aluno alu = new Aluno();
+        con = MyConnection.getConnection();
+        String sql = "select * from aluno where idAluno =?";
+
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idAluno);
+            result = stmt.executeQuery();
+            
+            while(result.next()) {
+            alu.setIdAluno(result.getInt("idAluno"));
+            alu.setNome(result.getString("nome"));
+            alu.setTelefone(result.getString("telefone"));
+            alu.setEmail(result.getString("email"));
+            alu.setIdade(result.getInt("idade"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("Opss.. Erro ao selecionar Aluno" + e);
+        } finally {
+            MyConnection.closeConnection(con, stmt, result);
+        }
+
+        return alu;
     }
 
 }
