@@ -72,13 +72,21 @@ public class AlunoServlet extends HttpServlet {
         AlunoDAO dao = new AlunoDAO();
 
         if (acao.equals("listar")) {
-
             abrir = listar;
             request.setAttribute("alunos", dao.read());
         } else if (acao.equals("editar")) {
             int idAluno = Integer.parseInt(request.getParameter("id"));
             request.setAttribute("aluno", dao.findId(idAluno));
             abrir = editar;
+        } else if (acao.equals("apagar")) {
+            int idAluno = Integer.parseInt(request.getParameter("id"));
+            if (dao.delete(idAluno)) {
+                abrir = sucesso;
+                request.setAttribute("msg", "Aluno excluído com sucesso!");
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Erro ao tentar excluir Aluno!");
+            }
         }
 
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
@@ -140,11 +148,10 @@ public class AlunoServlet extends HttpServlet {
                 request.setAttribute("msg", "Ops... Erro ao atualizar Aluno!");
 
             }
-
-            RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
-            visualizar.forward(request, response);
-
         }
+
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);  
 
         /**
          * Returns a short description of the servlet.
@@ -153,4 +160,4 @@ public class AlunoServlet extends HttpServlet {
          */
     }
 
-    }
+}

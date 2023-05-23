@@ -82,6 +82,15 @@ public class ProfessorServlet extends HttpServlet {
             abrir = editar;
 
             //processRequest(request, response);
+        } else if (acao.equals("apagar")) {
+            int idProfessor = Integer.parseInt(request.getParameter("id"));
+            if (dao.delete(idProfessor)) {
+                abrir = sucesso;
+                request.setAttribute("msg", "Professor excluído com sucesso!");
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Erro ao tentar excluir Professor!");
+            }
         }
 
         RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
@@ -143,13 +152,12 @@ public class ProfessorServlet extends HttpServlet {
             } else {
                 abrir = erro;
                 request.setAttribute("msg", "Ops... Erro ao atualizar professoe!");
-
             }
 
-            RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
-            visualizar.forward(request, response);
-
         }
+
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);
     }
 
     /**

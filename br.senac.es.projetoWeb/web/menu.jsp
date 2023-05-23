@@ -17,7 +17,7 @@
                         <li><a class="dropdown-item" href="#">Listar turma</a></li>
                         <li><a class="dropdown-item" href="#">Cadastrar curso</a></li>
                         <li><a class="dropdown-item" href="#">Listar curso</a></li>
-                        <li><a class="dropdown-item" href="#">Cadastrar matrícula</a></li>
+                        <li><a class="dropdown-item" href="./cadastrar_matricula.jsp">Cadastrar matrícula</a></li>
                         <li><a class="dropdown-item" href="#">Listar matrícula</a></li>
                     </ul>
                 </li>
