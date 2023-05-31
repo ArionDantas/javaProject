@@ -12,6 +12,10 @@
         <servlet-name>MatriculaServlet</servlet-name>
         <servlet-class>controller.MatriculaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TurmaServlet</servlet-name>
+        <servlet-class>controller.TurmaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoServlet</servlet-name>
         <url-pattern>/aluno</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>MatriculaServlet</servlet-name>
         <url-pattern>/matricula</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TurmaServlet</servlet-name>
+        <url-pattern>/turma</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

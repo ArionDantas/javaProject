@@ -62,7 +62,7 @@ public class Matricula {
         this.valor = valor;
     }
 
-    public boolean isGratuidade() {
+    public boolean getGratuidade() {
         return gratuidade;
     }
 

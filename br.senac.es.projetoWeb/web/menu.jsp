@@ -13,11 +13,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Secretaria</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Cadastrar turma</a></li>
+                        <li><a class="dropdown-item" href="./turma?acao=cad_turma">Cadastrar turma</a></li>
                         <li><a class="dropdown-item" href="#">Listar turma</a></li>
                         <li><a class="dropdown-item" href="#">Cadastrar curso</a></li>
                         <li><a class="dropdown-item" href="#">Listar curso</a></li>
-                        <li><a class="dropdown-item" href="./cadastrar_matricula.jsp">Cadastrar matrícula</a></li>
+                        <li><a class="dropdown-item" href="./matricula?acao=cad_matricula">Cadastrar matrícula</a></li>
                         <li><a class="dropdown-item" href="#">Listar matrícula</a></li>
                     </ul>
                 </li>

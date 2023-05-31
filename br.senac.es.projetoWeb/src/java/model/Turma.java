@@ -11,11 +11,13 @@ public class Turma {
     private Date fim;
     private int idProfessor;
     private int idCurso;
+    private String codigo;
+    private String status;
 
     public Turma() {
     }
 
-    public Turma(int idTurma, String sala, String turno, Date inicio, Date fim, int idProfessor, int idCurso) {
+    public Turma(int idTurma, String sala, String turno, Date inicio, Date fim, int idProfessor, int idCurso, String codigo, String status) {
         this.idTurma = idTurma;
         this.sala = sala;
         this.turno = turno;
@@ -23,6 +25,8 @@ public class Turma {
         this.fim = fim;
         this.idProfessor = idProfessor;
         this.idCurso = idCurso;
+        this.codigo = codigo;
+        this.status = status;
     }
 
     public int getIdTurma() {
@@ -80,6 +84,23 @@ public class Turma {
     public void setIdCurso(int idCurso) {
         this.idCurso = idCurso;
     }
-    
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+   
     
 }

@@ -1,15 +1,24 @@
 package controller;
 
+import dao.AlunoDAO;
+import dao.MatriculaDAO;
+import dao.TurmaDAO;
+import model.Matricula;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Matricula;
 
 public class MatriculaServlet extends HttpServlet {
 
+    TurmaDAO daoTurma = new TurmaDAO();
+    AlunoDAO daoAluno = new AlunoDAO();
     private String acao, abrir;
     private final String cadastrar = "cadastrar_matricula.jsp";
     private final String editar = "editar_matricula.jsp";
@@ -21,40 +30,58 @@ public class MatriculaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code.
-            out.println("<!DOCTYPE html>");;;;
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MatriculaServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MatriculaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>"); */
+
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        acao = request.getParameter("acao");
+
+        if (acao.equals("cad_matricula")) {
+            request.setAttribute("aluno", daoAluno.read());
+            request.setAttribute("turma", daoTurma.read());
+            abrir = cadastrar;
+        }
+
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);  
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         acao = request.getParameter("acao");
-        
+
         if (acao.equals("cadastrar")) {
-            
+
             Matricula mat = new Matricula();
-            
+            Date d = new Date();
+
             mat.setIdAluno(Integer.parseInt(request.getParameter("txtIdAluno")));
             mat.setIdTurma(Integer.parseInt(request.getParameter("txtIdTurma")));
             mat.setValor(Double.parseDouble(request.getParameter("txtValor")));
-            mat.setData();
+            mat.setData(d);
+
+            MatriculaDAO dao = new MatriculaDAO();
+//            System.out.println("dao: " + dao);
+
+            if (dao.create(mat)) {
+                abrir = sucesso;
+                request.setAttribute("msg", "Uhull... Matricula cadastrado com sucesso!");
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Ops... Erro ao cadastrar Aluno!");
+            }
+            System.out.println("2: ");
+
         }
+
+        RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+        visualizar.forward(request, response);
     }
 
     @Override

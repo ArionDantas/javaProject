@@ -5,17 +5,17 @@ public class Curso {
     private String nome;
     private String categoria;
     private int cargaHoraria;
-    private double valor;
+    private boolean gratuito;
 
     public Curso() {
     }
 
-    public Curso(int idCurso, String nome, String categoria, int cargaHoraria, double valor) {
+    public Curso(int idCurso, String nome, String categoria, int cargaHoraria, boolean gratuito) {
         this.idCurso = idCurso;
         this.nome = nome;
         this.categoria = categoria;
         this.cargaHoraria = cargaHoraria;
-        this.valor = valor;
+        this.gratuito = gratuito;
     }
 
     public int getIdCurso() {
@@ -50,12 +50,16 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public double getValor() {
-        return valor;
+    public boolean getGratuito() {
+        return gratuito;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setGratuito(boolean gratuito) {
+        this.gratuito = gratuito;
     }
-     
+
+
+
+
+
 }

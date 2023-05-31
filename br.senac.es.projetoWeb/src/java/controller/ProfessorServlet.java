@@ -22,7 +22,7 @@ import model.Professor;
 public class ProfessorServlet extends HttpServlet {
 
     private String acao, abrir;
-    private final String cadastrar = "cadastrar_professor.jsp";
+
     private final String editar = "editar_professor.jsp";
     private final String listar = "listar_professores.jsp";
     private final String sucesso = "sucesso.jsp";
@@ -41,7 +41,7 @@ public class ProfessorServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            /* TODO output your page here. You may use following sample code. 
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -50,7 +50,7 @@ public class ProfessorServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet ProfessorServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
-            out.println("</html>");
+            out.println("</html>");*/
         }
     }
 
@@ -121,8 +121,6 @@ public class ProfessorServlet extends HttpServlet {
             professor.setArea((request.getParameter("txtArea")));
             professor.setTelefone(request.getParameter("txtTelefone"));
             professor.setFormacao(request.getParameter("txtFormacao"));
-
-            System.out.println(professor.toString());
 
             ProfessorDAO dao = new ProfessorDAO();
 

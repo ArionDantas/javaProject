@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,14 +16,24 @@
                 <h1>.: Cadastro de matricula</h1>
             </div>
 
-            <form action="aluno" method="POST">
+            <form action="matricula" method="POST">
                 <div class="mb-3 mt-3">
-                    <label for="txtIdAluno" class="form-label">Id do aluno</label>
-                    <input type="number" class="form-control" id="idAluno" min="1" placeholder="Enter nome" name="txtIdAluno" required>
+                    <label for="txtIdAluno" class="form-label">Nome do aluno</label>
+                    <select>
+                        <c:forEach items="${aluno}" var="alu">
+                            <option value="${alu.idAluno}">${alu.nome}</option>
+                        </c:forEach>
+                    </select>
+                    
                 </div>
-                <div class="mb-3 mt-3">
-                    <label for="txtIdTurma" class="form-label">Id da turma:</label>
-                    <input type="number" class="form-control" id="idTurma" min="1" placeholder="Enter email" name="txtIdTurma">
+                <div class="mb-3 mt-3"> 
+                    <label for="txtIdTurma" class="form-label">Turma:</label>
+                    <select>
+                        <c:forEach items="${turma}" var="turma">
+                            <option value="${turma.idTurma}">${turma.codigo}</option>
+                        </c:forEach>
+                    </select>
+
                 </div>
                 <div class="mb-3">
                     <label for="txtValor" class="form-label">Valor:</label>

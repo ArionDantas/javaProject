@@ -26,8 +26,7 @@ public class MatriculaDAO {
             stmt.setInt(1, mat.getIdAluno());
             stmt.setInt(2, mat.getIdTurma());
             stmt.setDouble(3, mat.getValor());
-            
-            Date d = new Date (mat.getData().getTime());
+            Date d = new Date(mat.getData().getTime());
             stmt.setDate(4, d);
             stmt.executeUpdate();
             
