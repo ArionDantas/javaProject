@@ -30,8 +30,9 @@ public class TurmaDAO {
             stmt.setString(1, turma.getSala());
             stmt.setString(2, turma.getTurno());
             stmt.setInt(3, turma.getIdCurso());
-            stmt.setInt(4, turma.getIdTurma());
+            stmt.setInt(4, turma.getIdProfessor());
             stmt.setString(5, turma.getStatus());
+            
             Date dataInicio = new Date(turma.getInicio().getTime());
             Date dataTermino = new Date(turma.getFim().getTime());
             stmt.setDate(6, dataInicio);

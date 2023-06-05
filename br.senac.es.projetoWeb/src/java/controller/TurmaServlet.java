@@ -2,17 +2,22 @@ package controller;
 
 import dao.CursoDAO;
 import dao.ProfessorDAO;
+import dao.TurmaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Turma;
 
 public class TurmaServlet extends HttpServlet {
 
-    ProfessorDAO daoTurma = new ProfessorDAO();
+    ProfessorDAO daoProfessor = new ProfessorDAO();
     CursoDAO daoCurso = new CursoDAO();
     private String acao, abrir;
     private final String cadastrar = "cadastrar_turma.jsp";
@@ -36,7 +41,7 @@ public class TurmaServlet extends HttpServlet {
 
         if (acao.equals("cad_turma")) {
             request.setAttribute("curso", daoCurso.read());
-            request.setAttribute("turma", daoTurma.read());
+            request.setAttribute("professor", daoProfessor.read());
             abrir = cadastrar;
         }
 
@@ -49,6 +54,46 @@ public class TurmaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        acao = request.getParameter("acao");
+
+        if (acao.equals("cadastrar")) {
+
+            Turma turma = new Turma();
+
+            turma.setCodigo(request.getParameter("txtCodigo"));
+            turma.setSala(request.getParameter("txtSala"));
+            turma.setTurno(request.getParameter("txtTurno"));
+            turma.setStatus(request.getParameter("txtStatus"));
+            turma.setIdCurso(Integer.parseInt(request.getParameter("txtCursoId")));
+            turma.setIdProfessor(Integer.parseInt(request.getParameter("txtIdProfessor")));
+
+            try {
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+                String dataI = request.getParameter("txtInicio");
+                String dataT = request.getParameter("txtTermino");
+
+                Date dataInicio = formato.parse(dataI);
+                Date dataTermino = formato.parse(dataT);
+
+                turma.setInicio(dataInicio);
+                turma.setFim(dataTermino);
+            } catch (ParseException e) {
+                System.out.println("erro aqui =>" + e);
+            }
+
+            TurmaDAO dao = new TurmaDAO();
+
+            if (dao.create(turma)) {
+                abrir = sucesso;
+                request.setAttribute("msg", "Uhull... Aluno cadastrado com sucesso!");
+            } else {
+                abrir = erro;
+                request.setAttribute("msg", "Ops... Erro ao cadastrar Aluno!");
+            }
+            RequestDispatcher visualizar = request.getRequestDispatcher(abrir);
+            visualizar.forward(request, response);
+        }
     }
 
     @Override

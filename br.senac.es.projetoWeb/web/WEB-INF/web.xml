@@ -16,6 +16,10 @@
         <servlet-name>TurmaServlet</servlet-name>
         <servlet-class>controller.TurmaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CursoServlet</servlet-name>
+        <servlet-class>controller.CursoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoServlet</servlet-name>
         <url-pattern>/aluno</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>TurmaServlet</servlet-name>
         <url-pattern>/turma</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CursoServlet</servlet-name>
+        <url-pattern>/curso</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

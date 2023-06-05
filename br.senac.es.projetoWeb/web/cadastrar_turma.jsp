@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,19 +27,23 @@
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="txtTurno" class="form-label">Turno:</label>
-                    <input type="text" class="form-control" id="turno" placeholder="Entre com o turno" name="txtTurno">
+                    <select name="txtTurno">
+                        <option value="m">Matutino</option>
+                        <option value="v">Vestipertino</option>
+                        <option value="n">Noturno</option>
+                    </select>
                 </div>
                 <div class="mb-3 mt-3">
-                    <label for="txtIdAluno" class="form-label">Curso</label>
-                    <select>
-                        <c:forEach items="${curso}" var="curso">
-                            <option value="${curso.idCurso}">${curso.nome}</option>
+                    <label for="txtCursoId" class="form-label">Curso</label>
+                    <select name="txtCursoId">
+                        <c:forEach items="${curso}" var="cur">
+                            <option value="${cur.idCurso}">${cur.nome}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="mb-3 mt-3"> 
-                    <label for="txtIdTurma" class="form-label">Professor:</label>
-                    <select>
+                    <label for="txtIdProfessor" class="form-label">Professor:</label>
+                    <select name="txtIdProfessor">
                         <c:forEach items="${professor}" var="pro">
                             <option value="${pro.idProfessor}">${pro.nome}</option>
                         </c:forEach>
@@ -47,7 +52,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="txtStatus" class="form-label">Status</label>
-                    <select>
+                    <select name="txtStatus">
                         <option value="a">Ativa</option>
                         <option value="d">Desativada</option>
                     </select>

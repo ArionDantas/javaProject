@@ -2,7 +2,6 @@ package dao;
 
 import connection.MyConnection;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +70,6 @@ public class CursoDAO {
         } finally {
             MyConnection.closeConnection(con, stmt, result);
         }
-
         return cursos;
     }
 }
